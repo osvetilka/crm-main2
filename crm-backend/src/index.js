@@ -2,7 +2,7 @@
 global.APP_ROOT = process.main ? process.main.paths[0].split('node_modules')[0] : process.mainModule.paths[0].split('node_modules')[0];
 
 // Менеджер компонентов приложения
-global.AppComponents = require(APP_ROOT + 'utils/appComponents.js')
+global.AppComponents = require(APP_ROOT + 'utils/appComponents.js');
 
 try {
 	// Конфигурация приложения
@@ -47,5 +47,5 @@ catch (err) {
 	return;
 }
 
-const app = AppComponents.getComponent('app')
+const app = AppComponents.getComponent('app');
 app.start();
