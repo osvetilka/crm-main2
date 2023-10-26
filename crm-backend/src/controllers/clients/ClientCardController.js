@@ -11,7 +11,7 @@ module.exports = class ClientCardController extends DefaultAPIController
 		const clientID = this.requestParams[0];
 		const clientCard = AppComponents.getComponent('clientModel').getClient(clientID);
 		if (clientCard) {
-			response.write(clientCard);
+			response.write(JSON.stringify(clientCard));
 		}
 		else {
 			response.statusCode = 404;
