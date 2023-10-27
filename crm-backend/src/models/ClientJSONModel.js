@@ -4,6 +4,10 @@ module.exports = class ClientJSONModel {
 	constructor(config) {
 		this.config = AppComponents.getComponent('config');
 		this.filePath = this.config.clientsJSONFilePath;
+		if (!fs.existsSync(APP_ROOT + '../storage')) {
+		// Создадим каталог, если его еще нет
+		fs.mkdirSync(APP_ROOT + '../storage');
+		}
 		if (!fs.existsSync(this.filePath)) {
 			// Создадим пустой JSON-файл, если его еще нет
 			this.writeData([]);
