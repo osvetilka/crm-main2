@@ -137,7 +137,7 @@ const app = {
 		const clientModel = AppComponents.getComponent('clientModel');
 		console.log(`Генерируем случайных клиентов: ${clientsCount}`);
 		// Очищаем JSON-файл
-		clientModel.writeData([]);
+		clientModel.clearDB();
 		for (let i = 1; i <= clientsCount; i++) {
 			const gender = this.getRandomInt(1);
 			const newClient = {

@@ -97,6 +97,11 @@ module.exports = class ClientJSONModel {
 		return client;
 	}
 
+	// Метод очищает БД клиентов
+	clearDB() {
+		this.writeData([]);
+	}
+
 	// Метод сохраняет переданный массив объектов карточек клиентов в файл
 	writeData(clients) {
 		fs.writeFileSync(this.filePath, JSON.stringify(clients), { encoding: 'utf8' });
