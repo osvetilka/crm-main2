@@ -62,9 +62,23 @@ module.exports = class ClientJSONModel {
 		return true;
 	}
 
-	// Метод возвращает список всех клиентов (массив объектов карточек клиентов)
-	getClients() {
-		return JSON.parse(fs.readFileSync(this.filePath) || '[]');
+	// Метод возвращает список всех клиентов (массив объектов карточек клиентов), если searchTerm не указан
+	//	Если searchTerm указан, будет возвращён только список клиентов, у которых ФИО или любой из контактов содержит searchTerm
+	getClients(searchTerm = '') {
+		if (searchTerm) {
+			const clients = JSON.parse(fs.readFileSync(this.filePath) || '[]');
+			return clients.filter(client => [
+				client.name,
+				client.surname,
+				client.lastName,
+				...client.contacts.map(({ value }) => value)
+			 ]
+				.some(str => str.toLowerCase().includes(searchTerm))
+		  );
+		}
+		else {
+			return JSON.parse(fs.readFileSync(this.filePath) || '[]');
+		}
 	}
 
 	// Метод производит правильность заполнения объекта карточки клиента, и возвращает объект карточки только с нужными полями

@@ -25,7 +25,8 @@ module.exports = class CreateClientController extends DefaultAPIController
 			const newClient = clientModel.create(clientCard);
 			// Вернём ссылку на карточку клиента и саму карточку в теле ответа
 			response.statusCode = 201;
-			response.setHeader('Location', `http://localhost:${this.config.port}${this.config.apiURIPrefix}/${newClient.id}`);
+			const uri = AppComponents.getComponent('router').matchedURI;
+			response.setHeader('Location', `http://localhost:${this.config.port}${uri}/${newClient.id}`);
 			response.write(JSON.stringify(newClient));
 		}
 	}

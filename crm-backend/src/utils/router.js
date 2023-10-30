@@ -6,6 +6,8 @@ module.exports = class Router
 	{
 		this.routes = AppComponents.getComponent('routes');
 		this.uriPrefix = AppComponents.getComponent('config').apiURIPrefix;
+		this.queryParams = {}
+		this.matchedURI = '';
 	}
 
 	// Обработка запроса - возвращает имя класса контроллера, соотв. маршруту, или false, если URI/метод не соответствуют ни одному маршруту.
@@ -15,9 +17,17 @@ module.exports = class Router
 			return false;
 		}
 		// Получим часть URI без префикса - именно она проверяется на соотв-ие path в маршрутах, также отбросим параметры (часть URI после ?)
-		let [reqURI, ] = request.url.substr(this.uriPrefix.length).split('?');
+		let [reqURI, query] = request.url.substr(this.uriPrefix.length).split('?');
 		if (reqURI === '/') {
 			reqURI = '';
+		}
+		// параметры могут отсутствовать вообще или иметь вид a=b&b=c
+		// во втором случае наполняем объект queryParams { a: 'b', b: 'c' }
+		if (query) {
+		  for (const piece of query.split('&')) {
+			 const [key, value] = piece.split('=');
+			 this.queryParams[key] = value ? decodeURIComponent(value) : '';
+		  }
 		}
 		// Проверим маршруты по списку
 		for (const {path, method, controller} of this.routes) {
@@ -29,6 +39,8 @@ module.exports = class Router
 						if (path.test(reqURI)) {
 							this.requestParams = reqURI.match(path);
 							this.requestParams.shift();
+							this.matchedURI = this.uriPrefix + reqURI;
+							console.log(this.matchedURI);
 							return controller;
 						}
 					}
@@ -38,6 +50,8 @@ module.exports = class Router
 				}
 				else if (reqURI === path) {
 					// path соответствует URI запроса
+					this.matchedURI = this.uriPrefix + reqURI;
+					console.log(this.matchedURI);
 					return controller;
 				}
 			}

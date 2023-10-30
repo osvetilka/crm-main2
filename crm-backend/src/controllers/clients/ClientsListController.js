@@ -8,7 +8,9 @@ module.exports = class ClientsListController extends DefaultAPIController
 
 	run(response) {
 		super.run(response);
-		const clients = AppComponents.getComponent('clientModel').getClients();
+		const queryParams = AppComponents.getComponent('router').queryParams;
+		const search = queryParams['search'].trim().toLowerCase();
+		const clients = search ? AppComponents.getComponent('clientModel').getClients(search) : AppComponents.getComponent('clientModel').getClients();
 		response.write(JSON.stringify(clients));
 	}
 }
