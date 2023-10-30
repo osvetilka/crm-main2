@@ -27,6 +27,7 @@ module.exports = class App {
 				this.requestBodyObj = JSON.parse(reqBody);
 			}
 			catch (err) {
+				this.requestBodyObj = {};
 			}
 			this.runController(controllerClassName, response);
 			response.end();
@@ -50,17 +51,5 @@ module.exports = class App {
 			response.write(JSON.stringify({ 'message': 'Server Error' }));
 			console.error(err);
 		}
-	}
-
-	async getBodyAsJSON(request) {
-		return new Promise((resolve) => {
-			let data = '';
-			response.req.on('data', (chunk) => {
-				data += chunk;
-			});
-			response.req.on('end', () => {
-				resolve(JSON.parse(data));
-			});
-		});
 	}
 }

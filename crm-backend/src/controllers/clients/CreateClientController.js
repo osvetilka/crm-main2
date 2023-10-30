@@ -1,9 +1,12 @@
+const AppComponents = require("../../utils/appComponents");
+
 const DefaultAPIController = require(APP_ROOT + 'controllers/DefaultAPIController.js');
 
 module.exports = class CreateClientController extends DefaultAPIController
 {
 	constructor(requestParams) {
 		super(requestParams);
+		this.config = AppComponents.getComponent('config');
 	}
 
 	run(response) {
@@ -15,11 +18,15 @@ module.exports = class CreateClientController extends DefaultAPIController
 		if (validationErrors.length) {
 			// Есть ошибки валидации
 			response.statusCode = 422;
-			response.write(JSON.stringify({ validationErrors }));
+			response.write(JSON.stringify({ validationErrors: errors }));
 		}
 		else {
 			// Данные проверены - можно создавать клиента
-			clientModel.create(clientCard);
+			const newClient = clientModel.create(clientCard);
+			// Вернём ссылку на карточку клиента и саму карточку в теле ответа
+			response.statusCode = 201;
+			response.setHeader('Location', `http://localhost:${this.config.port}${this.config.apiURIPrefix}/${newClient.id}`);
+			response.write(JSON.stringify(newClient));
 		}
 	}
 }

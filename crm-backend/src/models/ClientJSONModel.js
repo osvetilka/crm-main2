@@ -26,13 +26,13 @@ module.exports = class ClientJSONModel {
 		return (client.length) ? client[0] : false;
 	}
 
-	// Метод создаёт нового клиента и заполняет его карточку данными из объекта clientCard. Возвращает ID нового клиента
+	// Метод создаёт нового клиента и заполняет его карточку данными из объекта clientCard. Возвращает полную карточку нового клиента
 	create(clientCard) {
 		clientCard.id = Date.now().toString();
 		clientCard.createdAt = clientCard.updatedAt = new Date().toISOString();
 		const clients = [...this.getClients(), clientCard];
 		this.writeData(clients);
-		return clientCard.id;
+		return clientCard;
 	}
 
 	// Метод пытается удалить клиента с указанным ID
