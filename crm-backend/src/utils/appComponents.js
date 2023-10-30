@@ -6,13 +6,16 @@ module.exports = class AppComponents
 		if (AppComponents.components[name]) {
 			return false;
 		}
-		AppComponents.components[name] = AppComponents.getObject(componentFilename, ...args);
+		try {
+			AppComponents.components[name] = AppComponents.getObject(componentFilename, ...args);
+		}
+		catch (err) {
+			console.error(`Не удалось подключить файл компонента "${fileName}":
+${err.message}
+`);
+			process.exit(err.code);
+		}
 		return true;
-	}
-
-	static registerAndReturnComponent(name, componentFilename, ...args) {
-		AppComponents.registerComponent(name, componentFilename, ...args);
-		return AppComponents.getComponent(name);
 	}
 
 	static getComponent(name) {

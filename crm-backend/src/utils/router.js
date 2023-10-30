@@ -2,9 +2,9 @@ module.exports = class Router
 {
 	requestParams = []; // параметры запроса из URI
 
-	constructor(routes)
+	constructor()
 	{
-		this.routes = routes;
+		this.routes = AppComponents.getComponent('routes');
 		this.uriPrefix = AppComponents.getComponent('config').apiURIPrefix;
 	}
 

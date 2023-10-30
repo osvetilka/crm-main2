@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 module.exports = class ClientJSONModel {
-	constructor(config) {
+	constructor() {
 		this.config = AppComponents.getComponent('config');
 		this.filePath = this.config.clientsJSONFilePath;
 		const dbDir = require('path').normalize(APP_ROOT + '../storage');

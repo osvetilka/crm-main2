@@ -3,7 +3,7 @@ module.exports = class App {
 		this.fallbackControllerClass = fallbackControllerClass;
 		this.config = AppComponents.getComponent('config');
 		this.router = AppComponents.getComponent('router');
-		this.banner = AppComponents.registerAndReturnComponent('banner', APP_ROOT + 'utils/banner.js');
+		this.banner = AppComponents.getComponent('banner');
 		this.requestBodyObj = null;
 	}
 

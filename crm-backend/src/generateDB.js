@@ -4,23 +4,16 @@ global.APP_ROOT = process.main ? process.main.paths[0].split('node_modules')[0] 
 // Менеджер компонентов приложения
 global.AppComponents = require(APP_ROOT + 'utils/appComponents.js');
 
-try {
-	// Конфигурация приложения
-	AppComponents.registerComponent(
-		'config',
-		APP_ROOT + 'config'
-	);
-
-	// Модель клиента, использующая для хранения данных JSON-файл
-	AppComponents.registerComponent(
-		'clientModel',
-		APP_ROOT + 'models/ClientJSONModel.js',
-		AppComponents.getComponent('config')
-	);
-}
-catch (err) {
-	console.error(err);
-}
+// Конфигурация приложения
+AppComponents.registerComponent(
+	'config',
+	APP_ROOT + 'config'
+);
+// Модель клиента, использующая для хранения данных JSON-файл
+AppComponents.registerComponent(
+	'clientModel',
+	APP_ROOT + 'models/ClientJSONModel.js'
+);
 
 const app = {
 	'names': [
