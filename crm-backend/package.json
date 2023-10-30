@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@",
+    "url": "https://github.com/judicator/sit-js-training-crm.git",
     "directory": "crm-backend"
   },
   "scripts": {
