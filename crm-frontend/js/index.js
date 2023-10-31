@@ -1,11 +1,10 @@
-const apiURI = 'http://localhost:4000/api/clients';
+const apiURI = 'http://localhost:3000/api/clients';
 
 async function updateClientsTable(searchTerm = '') {
-    const uri = apiURI + (
-        searchTerm ? '?search=' + encodeURIComponent(searchTerm) : '');
-    const response = await fetch(uri);
-    const clients = await response.json();
-    drawingTableOfClients(clients);
+   const uri = `${apiURI}${searchTerm ? '?search=' + encodeURIComponent(searchTerm) : ''}`;
+	const response = await fetch(uri);
+   const clients = await response.json();
+   drawingTableOfClients(clients);
 }
 
 document.addEventListener('DOMContentLoaded', updateClientsTable());
