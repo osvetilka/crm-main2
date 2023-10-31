@@ -6,12 +6,14 @@ module.exports = class Router
 	{
 		this.routes = AppComponents.getComponent('routes');
 		this.uriPrefix = AppComponents.getComponent('config').apiURIPrefix;
-		this.queryParams = {}
+		this.queryParams = {};
 		this.matchedURI = '';
 	}
 
 	// Обработка запроса - возвращает имя класса контроллера, соотв. маршруту, или false, если URI/метод не соответствуют ни одному маршруту.
 	handle(request) {
+		this.queryParams = {};
+		this.matchedURI = '';
 		if (!request.url.startsWith(this.uriPrefix)) {
 			// URI запроса не начинается с uriPrefix
 			return false;
