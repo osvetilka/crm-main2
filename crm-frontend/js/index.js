@@ -1,7 +1,18 @@
+const apiURI = 'http://localhost:4000/api/clients';
 
-var data = JSON.parse(data);
+async function updateClientsTable(searchTerm = '') {
+    const uri = apiURI + (
+        searchTerm ? '?search=' + encodeURIComponent(searchTerm) : '');
+    const response = await fetch(uri);
+    const clients = await response.json();
+    drawingTableOfClients(clients);
+}
 
-drawingTableOfClients(data);
+document.addEventListener('DOMContentLoaded', updateClientsTable());
+
+// var data = JSON.parse(data);
+//updateClientsTable();
+
 
 function drawingTableOfClients(clientsList) {
 
