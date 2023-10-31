@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>crm</title>
+    <script src="./assets/js/color-modes.js"></script>
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+    <nav class="navbar navbar-expand-md fixed-top bg-white sticky-top shadow-sm rounded">
+        <div class="container-fluid">
+            <span class="navbar-brand" href="#">Служба информационных технологий</span>
+            <div class="navbar-collapse" id="navbarCollapse">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Ввод..." aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Добавить
+                    клиента
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Фамилия Имя Отчество</th>
+                    <th scope="col">Дата и время создания</th>
+                    <th scope="col">Последние изменения</th>
+                    <th scope="col">Действия</th>
+                </tr>
+                </thead>
+                <tbody class="main__table_tbody">
+               <!-- <tr>
+                    <th scope="row">1</th>
+                    <td>Сёмин Евгений Николаевич</td>
+                    <td>17.07.2023</td>
+                    <td>17.07.2023</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                            Редактировать
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delModal">
+                            Удалить
+                        </button>
+                    </td>
+                </tr>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade modal-dialog modal-dialog-centered" id="addModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Новый клиент</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-1">
+                        <label for="sName" class="col-form-label">Фамилия:</label>
+                        <input type="text" class="form-control" id="sName">
+                    </div>
+                    <div class="mb-1">
+                        <label for="fName" class="col-form-label">Имя:</label>
+                        <input type="text" class="form-control" id="fName"></input>
+                    </div>
+                    <div class="mb-1">
+                        <label for="pName" class="col-form-label">Отчество:</label>
+                        <input type="text" class="form-control" id="pName"></input>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Создать</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-dialog modal-dialog-centered" id="updModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Изменить данные клиента</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-1">
+                        <label for="sName" class="col-form-label">Фамилия:</label>
+                        <input type="text" class="change-input form-control" id="sNameUpd">
+                    </div>
+                    <div class="mb-1">
+                        <label for="fName" class="col-form-label">Имя:</label>
+                        <input type="text" class="change-input form-control" id="fNameUpd">
+                    </div>
+                    <div class="mb-1">
+                        <label for="pName" class="col-form-label">Отчество:</label>
+                        <input type="text" class="change-input form-control" id="pNameUpd">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Создать</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Удалить клиента?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <h3 class="modal-title fs-5">Вы действительно хотите удалить данного клиента?</h3>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                <button type="button" class="btn btn-primary">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="./js/data.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
