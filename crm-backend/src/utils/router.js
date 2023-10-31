@@ -42,7 +42,6 @@ module.exports = class Router
 							this.requestParams = reqURI.match(path);
 							this.requestParams.shift();
 							this.matchedURI = this.uriPrefix + reqURI;
-							console.log(this.matchedURI);
 							return controller;
 						}
 					}
@@ -53,7 +52,6 @@ module.exports = class Router
 				else if (reqURI === path) {
 					// path соответствует URI запроса
 					this.matchedURI = this.uriPrefix + reqURI;
-					console.log(this.matchedURI);
 					return controller;
 				}
 			}
