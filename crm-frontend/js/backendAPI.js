@@ -30,9 +30,12 @@ class BackendAPI
             'method': 'PATCH',
             'body': JSON.stringify(client)
         });
-        if (!response.ok) {
-            console.error(`Не удалось обновить данные клиента с ID = ${id}`);
+        // Ошибка валидации данных клиента
+        if (response.status === 422) {
+            const respBody = await response.json();
+            return respBody.validationErrors;
         }
+        return [];
     }
 
     static async delete(id) {

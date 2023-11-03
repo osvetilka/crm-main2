@@ -19,12 +19,46 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('search-input').addEventListener('input', function(e) {
         search(e);
     });
+    // Кнопка удаление клиента в модальном окне
     document.getElementById('confirm-delete-button').addEventListener('click', async () => {
         document.getElementById('cancel-delete-button').click();
         const id = document.getElementById('client-id-to-delete').value;
         if (id) {
             await BackendAPI.delete(id);
             await updateClientsTable(document.getElementById('search-input').value);
+        }
+    });
+
+    // Кнопка "Сохранить" в модальном окне редактирования клиента
+    document.getElementById('confirm-update-button').addEventListener('click', async () => {
+        const id = document.getElementById('client-id-to-update').value;
+        if (id) {
+            const client = {
+                'surname': document.getElementById('sNameUpd').value,
+                'name': document.getElementById('fNameUpd').value,
+                'lastName': document.getElementById('pNameUpd').value,
+                'contacts': []
+            }
+            const errors = await BackendAPI.update(id, client);
+            if (errors.length) {
+                errors.forEach((err) => {
+                    switch (err.field) {
+                        case 'name':
+                            document.getElementById('fNameUpd').classList.add('is-invalid');
+                            break;
+                        case 'surname':
+                            document.getElementById('sNameUpd').classList.add('is-invalid');
+                            break;
+                    }
+                });
+            }
+            else {
+                document.getElementById('fNameUpd').classList.remove('is-invalid');
+                document.getElementById('pNameUpd').classList.remove('is-invalid');
+                document.getElementById('sNameUpd').classList.remove('is-invalid');
+                document.getElementById('cancel-update-button').click();
+                await updateClientsTable(document.getElementById('search-input').value);
+            }
         }
     });
 });
@@ -110,6 +144,7 @@ function drawingTableOfClients(clientsList) {
                         inputValue[0].value = clientsList[i].surname;
                         inputValue[1].value = clientsList[i].name;
                         inputValue[2].value = clientsList[i].lastName;
+                        document.getElementById('client-id-to-update').value = clientsList[i].id;
                     });
 
                     // ** кнопка удалить

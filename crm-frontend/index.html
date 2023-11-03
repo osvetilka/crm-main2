@@ -106,22 +106,23 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-1">
-                        <label for="sName" class="col-form-label">Фамилия:</label>
+                        <label for="sNameUpd" class="col-form-label">Фамилия:</label>
                         <input type="text" class="change-input form-control" id="sNameUpd">
                     </div>
                     <div class="mb-1">
-                        <label for="fName" class="col-form-label">Имя:</label>
+                        <label for="fNameUpd" class="col-form-label">Имя:</label>
                         <input type="text" class="change-input form-control" id="fNameUpd">
                     </div>
                     <div class="mb-1">
-                        <label for="pName" class="col-form-label">Отчество:</label>
+                        <label for="pNameUpd" class="col-form-label">Отчество:</label>
                         <input type="text" class="change-input form-control" id="pNameUpd">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary">Создать</button>
+                <input type="hidden" id="client-id-to-update" value="" />
+                <button id="cancel-update-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button id="confirm-update-button" type="button" class="btn btn-primary">Сохранить</button>
             </div>
         </div>
     </div>
