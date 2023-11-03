@@ -13,8 +13,8 @@
         <div class="container-fluid">
             <span class="navbar-brand" href="#">Служба информационных технологий</span>
             <div class="navbar-collapse" id="navbarCollapse">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Ввод..." aria-label="Search">
+                <form id="search-form" class="d-flex" role="search">
+                    <input id="search-input" class="form-control me-2" type="search" placeholder="Ввод..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Поиск</button>
                 </form>
             </div>
@@ -43,7 +43,7 @@
                     <th scope="col">Действия</th>
                 </tr>
                 </thead>
-                <tbody class="main__table_tbody">
+                <tbody id="clients-table-body" class="main__table_tbody">
                <!-- <tr>
                     <th scope="row">1</th>
                     <td>Сёмин Евгений Николаевич</td>
@@ -150,6 +150,7 @@
 
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="./js/data.js"></script>
+<script src="js/backendAPI.js"></script>
 <script src="js/index.js"></script>
 </body>
 </html>

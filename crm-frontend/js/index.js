@@ -1,17 +1,25 @@
-const apiURI = 'http://localhost:3000/api/clients';
+const searchDelay = 300;
 
 async function updateClientsTable(searchTerm = '') {
-   const uri = `${apiURI}${searchTerm ? '?search=' + encodeURIComponent(searchTerm) : ''}`;
-	const response = await fetch(uri);
-   const clients = await response.json();
-   drawingTableOfClients(clients);
+    document.getElementById('clients-table-body').innerHTML = '';
+    const clients = await BackendAPI.getList(searchTerm);
+    drawingTableOfClients(clients);
 }
 
-document.addEventListener('DOMContentLoaded', updateClientsTable());
+document.addEventListener('DOMContentLoaded', () => {
+    updateClientsTable();
 
-// var data = JSON.parse(data);
-//updateClientsTable();
+    function search(e) {
+        if (this.timeoutID) {
+          clearTimeout(this.timeoutID);
+        }
+        this.timeoutID = setTimeout(updateClientsTable, searchDelay, e.currentTarget.value);
+    }
 
+    document.getElementById('search-input').addEventListener('input', function(e) {
+        search(e);
+    })
+});
 
 function drawingTableOfClients(clientsList) {
 
