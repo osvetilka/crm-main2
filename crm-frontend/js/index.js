@@ -1,8 +1,8 @@
 const searchDelay = 300;
 
 async function updateClientsTable(searchTerm = '') {
-    document.getElementById('clients-table-body').innerHTML = '';
     const clients = await BackendAPI.getList(searchTerm);
+    document.getElementById('clients-table-body').innerHTML = '';
     drawingTableOfClients(clients);
 }
 
@@ -18,7 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('search-input').addEventListener('input', function(e) {
         search(e);
-    })
+    });
+    document.getElementById('confirm-delete-button').addEventListener('click', async () => {
+        document.getElementById('cancel-delete-button').click();
+        const id = document.getElementById('client-id-to-delete').value;
+        if (id) {
+            await BackendAPI.delete(id);
+            await updateClientsTable(document.getElementById('search-input').value);
+        }
+    });
 });
 
 function drawingTableOfClients(clientsList) {
@@ -112,10 +120,7 @@ function drawingTableOfClients(clientsList) {
                     btnDelete.append('Удалить');
                     btnDelete.addEventListener('click', () => {
                         // удалить клиента
-                        const btnDeleteModal = document.querySelector('.btn_modal-delete');
-                        btnDeleteModal.addEventListener('click', async () => {
-
-                        });
+                        document.getElementById('client-id-to-delete').value = clientsList[i].id;
                     });
 
                     tbodyTd.append(btnChange);
