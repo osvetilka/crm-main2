@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             document.getElementById('sNameUpd').classList.add('is-invalid');
                             break;
                     }
-                });
+                }); 
             }
             else {
                 document.getElementById('fNameUpd').classList.remove('is-invalid');
@@ -61,9 +61,52 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Кнопка "Создать" в модальном окне Создание клиента
+    document.getElementById('confirm-create-button').addEventListener('click', async () => {
+        const client = {
+            'surname': document.getElementById('sName').value,
+            'name': document.getElementById('fName').value,
+            'lastName': document.getElementById('pName').value,
+            'contacts': []
+        }
+       //console.log(client);
+        const errors = await BackendAPI.create(client); 
+        await updateClientsTable(document.getElementById('search-input').value);     
+        document.getElementById('cancel-create-button').click();          
+  
+     /*   if (errors.length) {
+                errors.forEach((err) => {
+                    switch (err.field) {
+                        case 'name':
+                            document.getElementById('fName').classList.add('is-invalid');
+                            break;
+                        case 'surname':
+                            document.getElementById('sName').classList.add('is-invalid');
+                            break;
+                    }
+                });
+        }
+        else {
+            document.getElementById('fName').classList.remove('is-invalid');
+            document.getElementById('pName').classList.remove('is-invalid');
+            document.getElementById('sName').classList.remove('is-invalid');
+            document.getElementById('cancel-create-button').click();
+            await updateClientsTable(document.getElementById('search-input').value);        
+        }*/
+    }); 
+
 });
 
 function drawingTableOfClients(clientsList) {
+    const btnCreate = document.getElementById('create-button');
+    btnCreate.addEventListener('click', () => {
+         // очистить поля
+         const inputValue = document.querySelectorAll('.create-input');
+         inputValue[0].value = '';
+         inputValue[1].value = '';
+         inputValue[2].value = '';
+    });
 
     // цикл по всем клиентам
     for (let i = 0; i < clientsList.length; i++) {
@@ -118,7 +161,8 @@ function drawingTableOfClients(clientsList) {
                     if (date2.getMonth() < 9) {
                         tbodyTd.textContent += '0';
                     }
-                    tbodyTd.textContent += `${date2.getMonth() + 1}.${date2.getFullYear()} `;
+                 //  tbodyTd.textContent += `${date2.getMonth() + 1}.${date2.getdata-dismissFullYear()} `;
+                   tbodyTd.textContent += `${date2.getMonth() + 1}.${date2.getFullYear()} `;
 
                     const span2 = document.createElement('span');
                     span2.classList.add('td_text');

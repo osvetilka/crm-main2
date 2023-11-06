@@ -1,4 +1,4 @@
-const apiURI = 'http://localhost:3000/api/clients';
+const apiURI = 'http://localhost:3025/api/clients';
 
 class BackendAPI
 {
@@ -54,8 +54,14 @@ class BackendAPI
             'method': 'POST',
             'body': JSON.stringify(client)
         });
-        if (!response.ok) {
-            console.error(`Не удалось создать клиента`);
+        // Ошибка валидации данных клиента
+        if (response.status === 422) {
+            const respBody = await response.json();
+            return respBody.validationErrors;
         }
+        return [];
+       /* if (!response.ok) {
+            console.error(`Не удалось создать клиента`);
+        }*/
     }
 }
